@@ -19,13 +19,23 @@ contract Inquirir {
     struct Inquerito {
         bytes32 texto;
         uint premio;
-        // address aaa;
+        address aaa;
         bool encerrado;
     }
 
     Inquerito[] public inqueritosArray;
 
     // function abrirInquerito(bytes32 _texto, uint _premio, address _inquerido) public returns (uint){
+    function put(bytes32 _texto, uint _premio) public returns (uint){
+        return inqueritosArray.push(Inquerito({
+            texto: _texto,
+            premio: _premio,
+            aaa: msg.sender,
+            encerrado: false
+        }))-1;
+
+    }
+    
     function abrirInquerito(bytes32 _texto, uint _premio) public returns (uint){
         Inquerito memory novoInquerito;
         novoInquerito.texto = _texto;
