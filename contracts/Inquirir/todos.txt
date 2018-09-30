@@ -1,0 +1,5 @@
+[=] não consigo abrir inquerito
+	[-] testar uma versão mais simples de inquérito
+		[-] só criar um array de premios, inserir um por um e listar todos
+		[-] se funcionar, aumente a complexidade
+	[-] tentar replicar aquele código do CRUD

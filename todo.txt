@@ -1,0 +1,7 @@
+[=] build cycle no python
+	[-] Adicionar opção de ver variaveis (obrigatórias)
+	[-] Adicionar opção de ver variáveis (obrigatórias e opcionais
+	[-] Em cada uma dessas opções, cada variável deve mostrar sua descrição e seu valor padrão
+[=] bash source recursive
+	[-] recebe repositório
+	[-] recursivamente entra na tree em busca de *.sh dando source neles

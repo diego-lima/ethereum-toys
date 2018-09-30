@@ -1,40 +1,31 @@
-pragma solidity ^0.4.16;
+contract MappedStructsWithIndex {
 
-    /**
-    * Experimentando contrato simples
-    * É como se fosse um botão e um contador
-    * Toda vida que alguém aperta o botão, o contador incrementa
-    * Só o dono do contrato pode resetar ou matar o contrato
-    */
-
-contract Tap {
-    address public owner;
-
-    uint public taps;
-
-    constructor () public {
-        owner = msg.sender;
-        taps = 0;
+    struct EntityStruct {
+        uint entityData;
+        bool isEntity;
     }
 
-    function kill() public {
-        if (msg.sender == owner)
-            selfdestruct(owner);
+    mapping(address => EntityStruct) public entityStructs;
+    address[] public entityList;
+
+    function isEntity(address entityAddress) public constant returns(bool isIndeed) {
+        return entityStructs[entityAddress].isEntity;
     }
 
-    function tap() public returns (uint) {
-        taps = taps + 1;
-        return taps;
+    function getEntityCount() public constant returns(uint entityCount) {
+        return entityList.length;
     }
 
-    function tap2() public returns (uint) {
-        taps = taps + 2;
-        return taps;
+    function newEntity(address entityAddress, uint entityData) public returns(uint rowNumber) {
+        if(isEntity(entityAddress)) revert();
+        entityStructs[entityAddress].entityData = entityData;
+        entityStructs[entityAddress].isEntity = true;
+        return entityList.push(entityAddress) - 1;
     }
 
-    function reset() public {
-        require(msg.sender == owner);
-        taps = 0;
+    function updateEntity(address entityAddress, uint entityData) public returns(bool success) {
+        if(!isEntity(entityAddress)) revert();
+        entityStructs[entityAddress].entityData = entityData;
+        return true;
     }
-
 }
