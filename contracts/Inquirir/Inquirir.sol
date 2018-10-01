@@ -19,18 +19,30 @@ contract Inquirir {
     struct Inquerito {
         bytes32 texto;
         uint premio;
-        address aaa;
+        // address aaa;
         bool encerrado;
     }
 
+    struct Inquisidor{
+        bytes32 nome;
+        uint carteira;
+    }
+
+    mapping (address => Inquisidor) public inquisidorMapping;
+
     Inquerito[] public inqueritosArray;
+    Inquisidor[] public inquisidorArray;
+
+    //////////
+    //          Inqueritos
+    //////////
 
     // function abrirInquerito(bytes32 _texto, uint _premio, address _inquerido) public returns (uint){
     function put(bytes32 _texto, uint _premio) public returns (uint){
         return inqueritosArray.push(Inquerito({
             texto: _texto,
             premio: _premio,
-            aaa: msg.sender,
+            // aaa: msg.sender,
             encerrado: false
         }))-1;
 
@@ -67,6 +79,28 @@ contract Inquirir {
 
     function pegarInquerito(uint _indice) public view returns (bytes32,uint, bool) {
         return (inqueritosArray[_indice].texto, inqueritosArray[_indice].premio, inqueritosArray[_indice].encerrado);
+    }
+
+    //////////
+    //          Inquisidores
+    //////////
+
+    function abrirInquisidor(address enredeco, bytes32 _texto) public payable returns (uint){
+        
+        Inquisidor memory novo;
+        novo.nome = _texto;
+        novo.carteira = 0;
+
+        uint index = inquisidorArray.push(novo) - 1;
+
+        // inquisidorMapping[enredeco].nome = _texto;
+        // inquisidorMapping[enredeco].carteira = 0;
+
+        return index;
+    }
+
+    function pegarInquisidor(uint _indice) public view returns (bytes32,uint) {
+        return (inquisidorArray[_indice].nome, inquisidorArray[_indice].carteira);
     }
 
 }
